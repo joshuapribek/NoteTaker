@@ -1,18 +1,18 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
+const path = require("path");
 const port = process.env.port || 3005;
 
-app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "public/index.html"));
+  res.sendFile(path.join(__dirname + "/index.html"));
 });
 
 app.get("/notes", function (req, res) {
-  res.sendFile(path.join(__dirname, "public/notes.html"));
+  res.sendFile(path.join(__dirname + "/notes.html"));
 });
 
 app.get("/api/notes/", function (req, res) {
@@ -23,7 +23,7 @@ app.get("/api/notes/", function (req, res) {
 });
 
 app.get("*", function (req, res) {
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile(__dirname + "/index.html");
 });
 
 app.post("/api/notes/", function (req, res) {
@@ -50,6 +50,9 @@ app.delete("/api/notes/:id", function (req, res) {
   });
 });
 
+
+
+
 app.listen(process.env.PORT || 3005, () => {
-  console.log(`Started server`);
+  console.log(`Listening on port 3005`);
 });
